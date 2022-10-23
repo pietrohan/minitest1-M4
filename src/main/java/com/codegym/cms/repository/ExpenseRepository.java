@@ -34,13 +34,12 @@ public class ExpenseRepository implements IExpenseRepository {
 
     @Override
     public void save(Expense expense) {
-            if (expense.getId() != null) {
-                em.merge(expense);
-            } else {
-                em.persist(expense);
-            }
+        if (expense.getId() != null) {
+            em.merge(expense);
+        } else {
+            em.persist(expense);
         }
-
+    }
 
     @Override
     public void remove(Long id) {

@@ -1,47 +1,25 @@
 package com.codegym.cms.model;
 
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "expenses")
-public class Expense {
-    @Id
-    @GeneratedValue(strategy =  GenerationType.AUTO)
+public class ExpenseForm {
     private long id;
     private String name;
     private double price;
     private String description;
     private String listSpending;
-    private String picture;
+    private MultipartFile picture;
 
-    public Expense() {
+    public ExpenseForm() {
     }
 
-    public Expense(long id, String name, double price, String description, String listSpending, String picture) {
-
-
+    public ExpenseForm(long id, String name, double price, String description, String listSpending, MultipartFile picture) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
         this.listSpending = listSpending;
         this.picture = picture;
-    }
-
-//    @Override
-//    public String toString() {
-//        return "Expense{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", price=" + price +
-//                ", description='" + description + '\'' +
-//                ", listSpending='" + listSpending + '\'' +
-//                ", picture='" + picture + '\'' +
-//                '}';
-//    }
-    @Override
-    public String toString() {
-        return String.format("Expense[id=%d, name='%s', price='%s',description='%s,listSpending='%s,picture='%s]", id, name, price,description,listSpending,picture);
     }
 
     public long getId() {
@@ -84,12 +62,11 @@ public class Expense {
         this.listSpending = listSpending;
     }
 
-    public String getPicture() {
+    public MultipartFile getPicture() {
         return picture;
     }
 
-    public void setPicture(String picture) {
+    public void setPicture(MultipartFile picture) {
         this.picture = picture;
     }
-
 }
