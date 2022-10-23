@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<a href="/create-expense">Create new expense</a>
+<h1>Expenses</h1>
+<table border="1">
+  <tr>
+    <th>Expense name</th>
+    <th>Price</th>
+    <th>Description</th>
+    <th>List Spending</th>
+    <th>Picture</th>
+    <th>Edit</th>
+  </tr>
+  <th:block th:each="expense : ${expenses}">
+    <tr>
+      <td th:text="${expense.name}"></td>
+      <td th:text="${expense.price}"></td>
+      <td th:text="${expense.description}"></td>
+      <td th:text="${expense.listSpending}"></td>
+      <td th:text="${expense.picture}"></td>
+      <td><a th:href="@{/edit-expense/__${expense.id}__ }">Edit</a></td>
+    </tr>
+  </th:block>
+</table>
+</body>
+</html>

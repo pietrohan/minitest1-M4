@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Create expense</title>
+</head>
+<body>
+<h1>Create expense</h1>
+<p>
+  <a href="/expenses">Customer list</a>
+</p>
+<th:block th:if="${message}">
+  <p th:text="${message}"></p>
+</th:block>
+<form th:action="@{/create-expense}" th:object="${expense}" method="post">
+  <table>
+    <tr>
+      <td>Expense name:</td>
+      <td><input type="text" th:field="*{name}"/></td>
+    </tr>
+    <tr>
+      <td>price:</td>
+      <td><input type="text" th:field="*{price}"/></td>
+    </tr>
+    <tr>
+      <td>Description:</td>
+      <td><input type="text" th:field="*{description}"/></td>
+    </tr>
+    <tr>
+      <td>List Spending:</td>
+      <td><input type="text" th:field="*{listSpending}"/></td>
+    </tr>
+    <tr>
+      <td>Picture:</td>
+      <td><input type="text" th:field="*{picture}"/></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input type="submit" value="Create expense"></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>
