@@ -3,7 +3,7 @@ package com.codegym.cms.model;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ExpenseForm {
-    private long id;
+    private Long id;
     private String name;
     private double price;
     private String description;
@@ -13,7 +13,7 @@ public class ExpenseForm {
     public ExpenseForm() {
     }
 
-    public ExpenseForm(long id, String name, double price, String description, String listSpending, MultipartFile picture) {
+    public ExpenseForm(Long id, String name, double price, String description, String listSpending, MultipartFile picture) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -22,11 +22,19 @@ public class ExpenseForm {
         this.picture = picture;
     }
 
-    public long getId() {
+    public ExpenseForm(Long id, String name, double price, String description, String listSpending) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.listSpending = listSpending;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

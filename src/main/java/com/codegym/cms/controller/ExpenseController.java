@@ -24,6 +24,8 @@ public class ExpenseController {
 
     @Autowired
     private IExpenseService expenseService;
+    @Value("${file-upload}")
+    private String fileUpload;
 
     @GetMapping("/create-expense")
     public ModelAndView showCreateForm() {
@@ -33,10 +35,20 @@ public class ExpenseController {
     }
 
     @PostMapping("/create-expense")
-    public ModelAndView saveExpense(@ModelAttribute("expense") Expense expense) {
+    public ModelAndView saveSpending(@ModelAttribute("expenseForm") ExpenseForm expenseForm) {
+        MultipartFile multipartFile = expenseForm.getPicture();
+        String fileName = multipartFile.getOriginalFilename();
+        try {
+            FileCopyUtils.copy(expenseForm.getPicture().getBytes(), new File(fileUpload + fileName));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        Expense expense = new Expense(expenseForm.getId(), expenseForm.getName(),expenseForm.getPrice(),expenseForm.getDescription(),expenseForm.getListSpending(), fileName);
+
+
         expenseService.save(expense);
         ModelAndView modelAndView = new ModelAndView("/expense/create");
-        modelAndView.addObject("expense", new Expense());
+        modelAndView.addObject("expenseForm", expenseForm);
         modelAndView.addObject("message", "New expense created successfully");
         return modelAndView;
     }
@@ -62,11 +74,20 @@ public class ExpenseController {
     }
 
     @PostMapping("/edit-expense")
-    public ModelAndView updateExpense(@ModelAttribute("expense") Expense expense) {
+    public ModelAndView updateExpense(@ModelAttribute("expenseForm") ExpenseForm expenseForm) {
+        MultipartFile multipartFile = expenseForm.getPicture();
+        String fileName = multipartFile.getOriginalFilename();
+        try {
+            FileCopyUtils.copy(expenseForm.getPicture().getBytes(), new File(fileUpload + fileName));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        Expense expense = new Expense(expenseForm.getId(), expenseForm.getName(),expenseForm.getPrice(),expenseForm.getDescription(),expenseForm.getListSpending(), fileName);
+
         expenseService.save(expense);
         ModelAndView modelAndView = new ModelAndView("/expense/edit");
         modelAndView.addObject("expense", expense);
-        modelAndView.addObject("message", "Expense updated successfully");
+        modelAndView.addObject("message", "expense updated successfully");
         return modelAndView;
     }
     @GetMapping("/delete-expense/{id}")
@@ -88,23 +109,21 @@ public class ExpenseController {
         expenseService.remove(expense.getId());
         return "redirect:expenses";
     }
-    @Value("${file-upload}")
-    private String fileUpload;
-    @PostMapping("/expense/save")
-    public ModelAndView saveExpense(@ModelAttribute ExpenseForm expenseForm) {
-        MultipartFile multipartFile = expenseForm.getPicture();
-        String fileName = multipartFile.getOriginalFilename();
-        try {
-            FileCopyUtils.copy(expenseForm.getPicture().getBytes(), new File(fileUpload + fileName));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        Expense expense = new Expense(expenseForm.getId(), expenseForm.getName(),
-                expenseForm.getPrice(),expenseForm.getDescription(),expenseForm.getListSpending(), fileName);
-        expenseService.save(expense);
-        ModelAndView modelAndView = new ModelAndView("/expense/create");
-        modelAndView.addObject("expenseForm", expenseForm);
-        modelAndView.addObject("message", "Created new expense successfully !");
-        return modelAndView;
-    }
+//    @PostMapping("/expense/save")
+//    public ModelAndView saveExpense(@ModelAttribute ExpenseForm expenseForm) {
+//        MultipartFile multipartFile = expenseForm.getPicture();
+//        String fileName = multipartFile.getOriginalFilename();
+//        try {
+//            FileCopyUtils.copy(expenseForm.getPicture().getBytes(), new File(fileUpload + fileName));
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+//        Expense expense = new Expense(expenseForm.getId(), expenseForm.getName(),
+//                expenseForm.getPrice(),expenseForm.getDescription(),expenseForm.getListSpending(), fileName);
+//        expenseService.save(expense);
+//        ModelAndView modelAndView = new ModelAndView("/expense/create");
+//        modelAndView.addObject("expenseForm", expenseForm);
+//        modelAndView.addObject("message", "Created new expense successfully !");
+//        return modelAndView;
+//    }
 }

@@ -8,7 +8,7 @@ import javax.persistence.*;
 public class Expense {
     @Id
     @GeneratedValue(strategy =  GenerationType.AUTO)
-    private long id;
+    private Long id;
     private String name;
     private double price;
     private String description;
@@ -18,9 +18,9 @@ public class Expense {
     public Expense() {
     }
 
-    public Expense(long id, String name, double price, String description, String listSpending, String picture) {
+    public Expense(Long id, String name, double price, String description, String listSpending, String picture) {
 
-
+this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
@@ -28,27 +28,11 @@ public class Expense {
         this.picture = picture;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Expense{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", price=" + price +
-//                ", description='" + description + '\'' +
-//                ", listSpending='" + listSpending + '\'' +
-//                ", picture='" + picture + '\'' +
-//                '}';
-//    }
-    @Override
-    public String toString() {
-        return String.format("Expense[id=%d, name='%s', price='%s',description='%s,listSpending='%s,picture='%s]", id, name, price,description,listSpending,picture);
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

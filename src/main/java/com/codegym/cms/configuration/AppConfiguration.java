@@ -10,11 +10,13 @@ import com.codegym.cms.service.ExpenseService;
 import com.codegym.cms.service.IExpenseService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -42,9 +44,8 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ComponentScan("com.codegym.cms.controller")
 public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAware {
-
+    private String fileUpload="D:/han/";;
     private ApplicationContext applicationContext;
-    private String fileUpload;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -101,9 +102,9 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/cms");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/Expense");
         dataSource.setUsername("root");
-        dataSource.setPassword("123456");
+        dataSource.setPassword("handc1");
         return dataSource;
     }
 

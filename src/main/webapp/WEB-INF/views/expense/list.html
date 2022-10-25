@@ -15,6 +15,7 @@
     <th>List Spending</th>
     <th>Picture</th>
     <th>Edit</th>
+    <th>Delete</th>
   </tr>
   <th:block th:each="expense : ${expenses}">
     <tr>
@@ -22,8 +23,9 @@
       <td th:text="${expense.price}"></td>
       <td th:text="${expense.description}"></td>
       <td th:text="${expense.listSpending}"></td>
-      <td th:text="${expense.picture}"></td>
+      <td><img width="100" height="100" th:src="@{'/han/' + ${expense.picture}}" alt=""></td>
       <td><a th:href="@{/edit-expense/__${expense.id}__ }">Edit</a></td>
+      <td><a th:href="@{/delete-expense/__${expense.id}__ }">Delete</a></td>
     </tr>
   </th:block>
 </table>
